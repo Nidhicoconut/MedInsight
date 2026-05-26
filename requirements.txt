@@ -1,4 +1,4 @@
-echo "fastapi
+fastapi
 uvicorn
 sqlalchemy
-httpx" > requirements.txt
+httpx
