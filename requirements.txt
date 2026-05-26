@@ -1,0 +1,4 @@
+echo "fastapi
+uvicorn
+sqlalchemy
+httpx" > requirements.txt
