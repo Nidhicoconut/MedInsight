@@ -1,10 +1,13 @@
+cat > vercel.json << 'EOF'
 {
-    "version": 2,
-    "builds": [
-      { "src": "main.py", "use": "@vercel/python" }
-    ],
-    "routes": [
-      { "src": "/api/(.*)", "dest": "main.py" },
-      { "src": "/(.*)", "dest": "index.html" }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    { "src": "main.py", "use": "@vercel/python" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "main.py" },
+    { "src": "/(.*)", "dest": "index.html" }
+  ]
+}
+EOF
