@@ -1576,19 +1576,11 @@ ${context}`;
 
   const messages = chatHistory.slice(-10).map(m => ({role:m.role, content:m.content}));
 
-  const GROQ_API_KEY = "your-groq-api-key-here";
-  const GROQ_MODEL   = 'llama-3.3-70b-versatile';
-
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: GROQ_MODEL,
-        max_tokens: 1000,
         messages: [
           { role: 'system', content: systemPrompt },
           ...messages
@@ -1597,18 +1589,16 @@ ${context}`;
     });
     const data = await res.json();
     thinking.remove();
-    if (data.choices && data.choices[0]) {
-      const reply = data.choices[0].message.content;
-      appendBubble('assistant', reply);
-      chatHistory.push({role:'assistant', content:reply});
+    if (data.reply) {
+      appendBubble('assistant', data.reply);
+      chatHistory.push({role:'assistant', content:data.reply});
       if (chatHistory.length > 20) chatHistory = chatHistory.slice(-16);
     } else {
-      const errMsg = data.error?.message || JSON.stringify(data) || 'Unknown error';
-      appendBubble('assistant', `⚠️ Groq API error: ${errMsg}`);
+      appendBubble('assistant', `⚠️ Error: ${data.error || 'Unknown error'}`);
     }
   } catch(e) {
     thinking.remove();
-    appendBubble('assistant', `⚠️ Could not reach Groq API: ${e.message}`);
+    appendBubble('assistant', `⚠️ Could not reach server: ${e.message}`);
   }
 }
 
