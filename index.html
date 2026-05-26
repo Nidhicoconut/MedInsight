@@ -1579,7 +1579,7 @@ ${context}`;
   try {
     const userMessage = messages[messages.length - 1].content;
     const history = messages.slice(0, -1).map(m => ({role: m.role, content: m.content}));
-    const res = await fetch('/api/chat', {
+    const res = await fetch('https://med-insight-dun.vercel.app/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
