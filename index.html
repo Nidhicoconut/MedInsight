@@ -886,6 +886,12 @@ body::before {
 // ─── CONFIG ────────────────────────────────────────────
 const API = 'http://localhost:8000';
 
+Chart.defaults.plugins.tooltip.titleColor = '#0f172a';
+Chart.defaults.plugins.tooltip.bodyColor = '#0f172a';
+Chart.defaults.plugins.tooltip.backgroundColor = '#ffffff';
+Chart.defaults.plugins.tooltip.borderColor = 'rgba(0,0,0,0.1)';
+Chart.defaults.plugins.tooltip.borderWidth = 1;
+
 // ─── GLOBALS ───────────────────────────────────────────
 let revChart, bedChart, admChart, deptRevChart;
 let liveKPIData = null; // store for modal + chat context
